@@ -3,3 +3,5 @@
 *.fa
 *.bam
 *.cram
+*.bin
+*.pt
