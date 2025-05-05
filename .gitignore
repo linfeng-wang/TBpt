@@ -6,3 +6,6 @@
 *.bin
 *.pt
 *.txt
+
+# find . -type f -size +99M
+# find . -type f -size +99M | awk -F. '{if (NF>1) print $NF}' | sort | uniq8
