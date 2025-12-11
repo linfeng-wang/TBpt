@@ -24,6 +24,9 @@ Key features:
 _Original data are not included, as permission for access is needed from TB portal_
 
 - `environment.yml`: conda environment file
+- `Appl`: streamlit dashboard
+  - `example_input.csv/xslx`: example input, add your own data in, in this format
+  - `feature_list.pkl`: list of features for input
 - `Analysis/`: Data analysis and modelling.
   - `Figures/`: plots and tables
   - `Figures/`: save model model weights for the full model

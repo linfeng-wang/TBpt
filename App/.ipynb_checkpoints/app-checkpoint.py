@@ -1,0 +1,179 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import xgboost as xgb
+import shap
+import joblib
+import matplotlib.pyplot as plt
+
+st.set_page_config(page_title="TB Treatment Outcome Predictor", layout="wide")
+
+# -------------------------------
+# Load model + feature list
+# -------------------------------
+@st.cache_resource
+def load_model():
+    model = xgb.XGBClassifier()
+    model.load_model("xgboost_full_model_weights.json")
+    return model
+
+@st.cache_resource
+def load_feature_list():
+    try:
+        return joblib.load("feature_list.pkl")   # column ordering used during training
+    except:
+        return None
+
+model = load_model()
+feature_list = load_feature_list()
+
+# --------------------------------
+# Title
+# --------------------------------
+st.title("🫁 TB Treatment Outcome Prediction Dashboard")
+st.markdown("Upload patient-level data to obtain predicted treatment outcome and model explanations.")
+
+# --------------------------------
+# Tabs
+# --------------------------------
+tab_upload, tab_shap, tab_waterfall = st.tabs(["📁 Upload & Predict", "📊 SHAP Summary", "🔍 Waterfall Explanation"])
+
+
+# ======================================================================
+# TAB 1: UPLOAD & PREDICT
+# ======================================================================
+with tab_upload:
+
+    uploaded = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
+
+    if uploaded is not None:
+        # Read file
+        if uploaded.name.endswith(".csv"):
+            df = pd.read_csv(uploaded)
+        else:
+            df = pd.read_excel(uploaded)
+
+        st.subheader("📄 Uploaded Data Preview")
+        st.dataframe(df.head())
+
+        # Ensure features align with training
+        if feature_list is not None:
+            missing = [c for c in feature_list if c not in df.columns]
+
+            # Create missing columns filled with NaN (safe for XGBoost)
+            if missing:
+                st.warning(f"The following features were missing and have been added as NaN: {missing}")
+                for col in missing:
+                    df[col] = np.nan
+
+            # Drop extra columns, keep only required set
+            df = df.reindex(columns=feature_list)
+
+        st.success("Data successfully validated. Ready to predict.")
+
+        # -------------------------------
+        # Predict
+        # -------------------------------
+        preds = model.predict(df)
+        probs = model.predict_proba(df)[:, 1]
+
+        result_df = pd.DataFrame({
+            "Predicted Outcome": ["Cured" if p == 1 else "Failed" for p in preds],
+            "Confidence Score": probs
+        })
+
+        st.subheader("🔮 Predictions")
+        st.dataframe(result_df)
+
+        # -------------------------------
+        # Summary Statistics
+        # -------------------------------
+        st.subheader("📈 Summary Statistics")
+        st.write(f"**Predicted cured:** { (preds==1).mean()*100:.2f}%")
+        st.write(f"**Predicted failed:** { (preds==0).mean()*100:.2f}%")
+        st.write(f"**Mean confidence:** { probs.mean():.3f}")
+
+        # Histogram
+        fig_hist, ax_hist = plt.subplots()
+        ax_hist.hist(probs, bins=20, color='skyblue')
+        ax_hist.set_title("Confidence Score Distribution")
+        st.pyplot(fig_hist)
+
+        # -------------------------------
+        # Download Predictions
+        # -------------------------------
+        csv = result_df.to_csv(index=False).encode('utf-8')
+        st.download_button(
+            label="⬇️ Download Predictions as CSV",
+            data=csv,
+            file_name="treatment_outcomes_predictions.csv",
+            mime="text/csv"
+        )
+
+
+
+# ======================================================================
+# TAB 2: SHAP SUMMARY
+# ======================================================================
+with tab_shap:
+
+    if uploaded is None:
+        st.info("Upload a file first in the 'Upload & Predict' tab.")
+    else:
+        st.subheader("📊 SHAP Feature Importance Summary")
+
+        # Limit rows for SHAP to prevent slowdowns
+        MAX_SHAP = 200
+        if len(df) > MAX_SHAP:
+            st.warning(f"Dataset is large. Only first {MAX_SHAP} rows used for SHAP visualization.")
+            df_shap = df.head(MAX_SHAP)
+        else:
+            df_shap = df
+
+        # Compute SHAP values
+        explainer = shap.Explainer(model, df_shap)
+        shap_values = explainer(df_shap)
+
+        # Bar plot
+        st.write("**Mean Absolute SHAP Values (Global Importance)**")
+        fig1, ax1 = plt.subplots(figsize=(10, 6))
+        shap.summary_plot(shap_values, df_shap, plot_type="bar", show=False)
+        st.pyplot(fig1)
+
+        # Beeswarm
+        st.write("**SHAP Beeswarm Plot (Full Feature Contributions)**")
+        fig2, ax2 = plt.subplots(figsize=(10, 6))
+        shap.summary_plot(shap_values, df_shap, show=False)
+        st.pyplot(fig2)
+
+
+
+# ======================================================================
+# TAB 3: SHAP WATERFALL
+# ======================================================================
+with tab_waterfall:
+
+    if uploaded is None:
+        st.info("Upload a file first in the 'Upload & Predict' tab.")
+    else:
+        st.subheader("🔍 SHAP Waterfall Explanation")
+
+        # Limit for SHAP again
+        MAX_SHAP = 200
+        df_shap = df.head(MAX_SHAP)
+
+        explainer = shap.Explainer(model, df_shap)
+        shap_values = explainer(df_shap)
+
+        # Choose index for detailed explanation
+        example_idx = st.number_input(
+            "Choose a sample index for a waterfall explanation:",
+            min_value=0,
+            max_value=len(df_shap)-1,
+            value=0
+        )
+
+        st.write(f"**SHAP Waterfall Plot for Sample {example_idx}**")
+        fig3, ax3 = plt.subplots(figsize=(10, 8))
+        shap.plots.waterfall(shap_values[example_idx], show=False)
+        st.pyplot(fig3)
