@@ -1,11 +1,9 @@
-*.csv
 *.fasta
 *.fa
 *.bam
 *.cram
 *.bin
 *.pt
-*.txt
 cache/
 Clinical/
 Genomic/

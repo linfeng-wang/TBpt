@@ -1,0 +1,5 @@
+,Features
+Demographic,"country, education,gender, employment,Social risk factors, age of onset, bmi, number of daily contacts, comorbidity"
+Microbiological,"type of resistance, case definition, diagnosis code, culture, genexpert test,bactec isoniazid,bactec rifampicin,bactec ethambutol, main lineage"
+X-ray,"overall percent of abnormal volume, pleural effusion percent of hemithorax involved, ispleuraleffusionbilateral, other non tb abnormalities, are mediastinal lymphnodes present, Collapse, smallcavities, mediumcavities, largecavities, isanylargecavitybelongtoamultisextantcavity, canmultiplecavitiesbeseen, infiltrate lowgroundglassdensity, infiltrate mediumdensity, infiltrate highdensity, smallnodules, mediumnodules, Largenodules,Hugenodules,isanycalcifiedorpartiallycalcifiednoduleexist, isanynoncalcifiednoduleexist, isanyclusterednoduleexists, aremultiplenoduleexists, lowgroundglassdensityactivefreshnodules, mediumdensitystabilizedfibroticnodules, highdensitycalcifiedtypicallysequella,timika score, lung localization, totalcavernum"
+Treatment,"regimen drug, regimen count, period span, outcome, treatment status"

@@ -1,0 +1,102 @@
+Feature,Importance,Feature Group,Feature Level,Missing values,Highest Correlated Feature (Correlation Value)
+age_of_onset,29.0,age_of_onset,pre-diagnosis,0 (0.0%),Others (0.17
+country,26.0,country,pre-diagnosis,0 (0.0%),Not_Reported-social_risk (0.51
+bmi,21.0,bmi,pre-diagnosis,2475 (30.6%),Diabetes (0.15
+number_of_daily_contacts,13.0,number_of_daily_contacts,pre-diagnosis,2887 (35.7%),Capreomycin (0.17
+education,12.0,education,pre-diagnosis,0 (0.0%),genexpert_test (0.32
+employment,8.0,employment,pre-diagnosis,369 (4.6%),education (0.28
+Documented MDR contact,7.0,social_risk_factors,pre-diagnosis,0 (0.0%),number_of_daily_contacts (0.11
+Patient alcohol abuse,5.0,social_risk_factors,pre-diagnosis,0 (0.0%),Current smoker (0.48
+Ex prisoner,4.0,social_risk_factors,pre-diagnosis,0 (0.0%),Hepatitis C (0.22
+Homeless,4.0,social_risk_factors,pre-diagnosis,0 (0.0%),Patient alcohol abuse (0.15
+gender,4.0,gender,pre-diagnosis,0 (0.0%),Not_Reported-social_risk (0.2
+Worked abroad,3.0,social_risk_factors,pre-diagnosis,0 (0.0%),country (0.12
+Immigrants,3.0,social_risk_factors,pre-diagnosis,0 (0.0%),Gatifloxacin 0.5 (0.16
+Current smoker,1.0,social_risk_factors,pre-diagnosis,0 (0.0%),Patient alcohol abuse (0.48
+Patient drug abuse,1.0,social_risk_factors,pre-diagnosis,0 (0.0%),Hepatitis C (0.37
+Patient alcohol abuse not available/unknown,1.0,social_risk_factors,pre-diagnosis,0 (0.0%),Patient smoking data not available/unknown (0.7
+Not_Reported-social_risk,1.0,social_risk_factors,pre-diagnosis,0 (0.0%),country (0.51
+type_of_resistance,18.0,type_of_resistance,post-diagnosis,0 (0.0%),genexpert_test (0.7
+case_definition,12.0,case_definition,post-diagnosis,0 (0.0%),Isoniazid (0.29
+Negative,9.0,culture,post-diagnosis,0 (0.0%),Clofazimine (0.36
+HIV,4.0,comobidity,post-diagnosis,0 (0.0%),Cotrimoxazol preventive (0.49
+lineage2,4.0,main_lineage,post-diagnosis,0 (0.0%),p-aminosalicylic acid (0.27
+Unknown_result-culture,4.0,culture,post-diagnosis,0 (0.0%),Negative (0.16
+Nonspecific microflora,4.0,culture,post-diagnosis,0 (0.0%),Bedaquiline (0.22
+Hepatitis C,4.0,comobidity,post-diagnosis,0 (0.0%),Patient drug abuse (0.37
+genexpert_test,4.0,genexpert_test,post-diagnosis,2489 (30.8%),type_of_resistance (0.7
+lineage2-lineage4,4.0,main_lineage,post-diagnosis,0 (0.0%),Not specified (0.06
+Not_reported-Comorbidity,3.0,comobidity,post-diagnosis,0 (0.0%),Rifampicin (0.4
+COVID-19,3.0,comobidity,post-diagnosis,0 (0.0%),A19.1 (0.12
+Not specified,2.0,comobidity,post-diagnosis,0 (0.0%),Prothionamide (0.26
+100 to 200,2.0,culture,post-diagnosis,0 (0.0%),type_of_resistance (0.16
+A19.8,2.0,diagnosis_code,post-diagnosis,0 (0.0%),Antiretroviral therapy (0.29
+A16.0,2.0,diagnosis_code,post-diagnosis,0 (0.0%),More than 200 (0.14
+A15.1,2.0,diagnosis_code,post-diagnosis,0 (0.0%),country (0.33
+Diabetes,2.0,comobidity,post-diagnosis,0 (0.0%),bmi (0.15
+Psychiatric illness,2.0,comobidity,post-diagnosis,0 (0.0%),employment (0.12
+bactec_isoniazid,2.0,bactec_isoniazid,post-diagnosis,2991 (37.0%),bactec_rifampicin (0.88
+1 to 19,1.0,culture,post-diagnosis,0 (0.0%),Negative (0.19
+More than 200,1.0,culture,post-diagnosis,0 (0.0%),mediumcavities (0.18
+other_non_tb_abnormalities,1.0,other_non_tb_abnormalities,post-diagnosis,1898 (23.4%),are_mediastinal_lymphnodes_present (0.25
+20 to 100,1.0,culture,post-diagnosis,0 (0.0%),education (0.21
+Systemically administered glucocorticoids,1.0,comobidity,post-diagnosis,0 (0.0%),employment (0.06
+Hepatitis B,1.0,comobidity,post-diagnosis,0 (0.0%),Hepatitis C (0.19
+Hepatic diseases,1.0,comobidity,post-diagnosis,0 (0.0%),Terminated from study (0.14
+timika_score,22.0,timika_score,post-scan,1898 (23.4%),overall_percent_of_abnormal_volume (0.69
+isanycalcifiedorpartiallycalcifiednoduleexist,8.0,isanycalcifiedorpartiallycalcifiednoduleexist,post-scan,0 (0.0%),highdensitycalcifiedtypicallysequella (0.62
+infiltrate_lowgroundglassdensity,7.0,infiltrate_lowgroundglassdensity,post-scan,0 (0.0%),infiltrate_mediumdensity (0.5
+totalcavernum,6.0,totalcavernum,post-scan,7036 (86.9%),aremultiplenoduleexists (0.27
+collapse,5.0,collapse,post-scan,0 (0.0%),infiltrate_highdensity (0.4
+smallnodules,5.0,smallnodules,post-scan,0 (0.0%),mediumdensitystabalizedfibroticnodules (0.75
+mediumcavities,5.0,mediumcavities,post-scan,0 (0.0%),isanylargecavitybelongtoamultisextantcavity (0.69
+overall_percent_of_abnormal_volume,4.0,overall_percent_of_abnormal_volume,post-scan,0 (0.0%),timika_score (0.69
+isanynoncalcifiednoduleexist,4.0,isanynoncalcifiednoduleexist,post-scan,0 (0.0%),aremultiplenoduleexists (0.76
+smallcavities,4.0,smallcavities,post-scan,0 (0.0%),canmultiplecavitiesbeseen (0.49
+largecavities,4.0,largecavities,post-scan,0 (0.0%),isanylargecavitybelongtoamultisextantcavity (0.62
+largenodules,3.0,largenodules,post-scan,0 (0.0%),isanynoncalcifiednoduleexist (0.27
+lung_localization,3.0,lung_localization,post-scan,0 (0.0%),A18.0 (0.32
+hugenodules,3.0,hugenodules,post-scan,0 (0.0%),largenodules (0.19
+lowgroundglassdensityactivefreshnodules,3.0,lowgroundglassdensityactivefreshnodules,post-scan,0 (0.0%),mediumnodules (0.71
+isanylargecavitybelongtoamultisextantcavity,2.0,isanylargecavitybelongtoamultisextantcavity,post-scan,0 (0.0%),mediumcavities (0.69
+mediumnodules,2.0,mediumnodules,post-scan,0 (0.0%),lowgroundglassdensityactivefreshnodules (0.71
+canmultiplecavitiesbeseen,1.0,canmultiplecavitiesbeseen,post-scan,0 (0.0%),mediumcavities (0.64
+are_mediastinal_lymphnodes_present,1.0,are_mediastinal_lymphnodes_present,post-scan,1898 (23.4%),mediumnodules (0.28
+ispleuraleffusionbilateral,1.0,ispleuraleffusionbilateral,post-scan,1899 (23.5%),collapse (0.12
+infiltrate_highdensity,1.0,infiltrate_highdensity,post-scan,0 (0.0%),isanylargecavitybelongtoamultisextantcavity (0.49
+aremultiplenoduleexists,1.0,aremultiplenoduleexists,post-scan,0 (0.0%),isanynoncalcifiednoduleexist (0.76
+mediumdensitystabalizedfibroticnodules,1.0,mediumdensitystabalizedfibroticnodules,post-scan,0 (0.0%),smallnodules (0.75
+highdensitycalcifiedtypicallysequella,1.0,highdensitycalcifiedtypicallysequella,post-scan,0 (0.0%),isanycalcifiedorpartiallycalcifiednoduleexist (0.62
+pleural_effusion_percent_of_hemithorax_involved,1.0,pleural_effusion_percent_of_hemithorax_involved,post-scan,1898 (23.4%),Positive (0.17
+period_span,65.0,period_span,Treatment-period,104 (1.3%),Capreomycin (0.35
+Patient stopped treatment,16.0,treatment_status,Treatment-period,0 (0.0%),infiltrate_highdensity (0.15
+Pretomanid,11.0,regimen_drug,Treatment-period,0 (0.0%),Bedaquiline (0.11
+Amoxicillin-clavulanate,8.0,regimen_drug,Treatment-period,0 (0.0%),Imipenem-cilastatin (0.86
+Treatment ended,7.0,treatment_status,Treatment-period,0 (0.0%),Not_reported-Comorbidity (0.31
+Adverse event,6.0,treatment_status,Treatment-period,0 (0.0%),Imipenem-cilastatin (0.17
+regimen_count,6.0,regimen_count,Treatment-period,0 (0.0%),Continuation of treatment (0.54
+Treatment ineffective due to additional resistance,5.0,treatment_status,Treatment-period,0 (0.0%),regimen_count (0.19
+Streptomycin,5.0,regimen_drug,Treatment-period,0 (0.0%),Rifampicin (0.18
+Antiretroviral therapy,5.0,regimen_drug,Treatment-period,0 (0.0%),Cotrimoxazol preventive (0.9
+p-aminosalicylic acid,4.0,regimen_drug,Treatment-period,0 (0.0%),Capreomycin (0.51
+Ofloxacin,4.0,regimen_drug,Treatment-period,0 (0.0%),Kanamycin (0.22
+Not_Reported-regimen_drug,4.0,regimen_drug,Treatment-period,0 (0.0%),Patient alcohol abuse (0.23
+Ethionamide,4.0,regimen_drug,Treatment-period,0 (0.0%),Capreomycin (0.39
+Not_Reported-treatment_status,4.0,treatment_status,Treatment-period,0 (0.0%),A19.8 (0.27
+Capreomycin,4.0,regimen_drug,Treatment-period,0 (0.0%),p-aminosalicylic acid (0.51
+Continuation of treatment,3.0,treatment_status,Treatment-period,0 (0.0%),regimen_count (0.54
+Delamanid,3.0,regimen_drug,Treatment-period,0 (0.0%),Clofazimine (0.39
+Amikacin,3.0,regimen_drug,Treatment-period,0 (0.0%),Not specified (0.18
+Imipenem-cilastatin,3.0,regimen_drug,Treatment-period,0 (0.0%),Amoxicillin-clavulanate (0.86
+Kanamycin,3.0,regimen_drug,Treatment-period,0 (0.0%),Prothionamide (0.32
+Clofazimine,2.0,regimen_drug,Treatment-period,0 (0.0%),Bedaquiline (0.8
+Rifampicin,2.0,regimen_drug,Treatment-period,0 (0.0%),Isoniazid (0.84
+Levofloxacin,2.0,regimen_drug,Treatment-period,0 (0.0%),Cycloserine (0.53
+Linezolid,2.0,regimen_drug,Treatment-period,0 (0.0%),Bedaquiline (0.79
+Clarithromycin,2.0,regimen_drug,Treatment-period,0 (0.0%),lineage1-lineage2 (0.28
+Pyrazinamide,1.0,regimen_drug,Treatment-period,0 (0.0%),Ethambutol (0.56
+Prothionamide,1.0,regimen_drug,Treatment-period,0 (0.0%),Capreomycin (0.42
+Isoniazid,1.0,regimen_drug,Treatment-period,0 (0.0%),Rifampicin (0.84
+Ethambutol,1.0,regimen_drug,Treatment-period,0 (0.0%),Isoniazid (0.81
+Bedaquiline,1.0,regimen_drug,Treatment-period,0 (0.0%),Clofazimine (0.8
+New drugs available,1.0,treatment_status,Treatment-period,0 (0.0%),isanylargecavitybelongtoamultisextantcavity (0.18
