@@ -6,6 +6,9 @@
 *.bin
 *.pt
 *.txt
-
+cache/
+Clinical/
+Genomic/
+TBpt/Analysis/cache
 # find . -type f -size +99M
 # find . -type f -size +99M | awk -F. '{if (NF>1) print $NF}' | sort | uniq8
