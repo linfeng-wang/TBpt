@@ -61,8 +61,42 @@ tab_upload, tab_shap, tab_waterfall = st.tabs(["📁 Upload & Predict", "📊 Mo
 # ======================================================================
 with tab_upload:
 
-    uploaded = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
+    uploaded = st.file_uploader("**Upload CSV or Excel file**", type=["csv", "xlsx"])
 
+    st.markdown(
+        """
+
+    ---
+
+    _Example input file_
+
+    You can download an example input file below to run a test prediction.  
+    This file also serves as a reference for the required data format. If you follow
+    the same structure and simply replace the values with your own data, the dashboard
+    will generate predictions for your dataset. \n
+    _(Exact feature encoding and and leveling can be found in the publication)_
+    """
+    )
+
+    # Download example input file
+    # with open("example_input.csv", "rb") as f:
+    #     st.download_button(
+    #         label="⬇️ Download Example Input File",
+    #         data=f,
+    #         file_name="example_input.csv",
+    #         mime="text/csv"
+    #     )
+
+    example_path = os.path.join(os.path.dirname(__file__), "example_input.csv")
+
+    with open(example_path, "rb") as f:
+        st.download_button(
+            label="⬇️ Download Example Input File",
+            data=f,
+            file_name="example_input.csv",
+            mime="text/csv"
+        )
+    
     if uploaded is not None:
         # Read file
         if uploaded.name.endswith(".csv"):
