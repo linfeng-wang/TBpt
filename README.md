@@ -5,7 +5,7 @@
 **Publication**: A multi-stage machine learning framework for stepwise prediction of tuberculosis treatment outcomes  
 **Dataset**: [TB Portals](https://tbportals.niaid.nih.gov)
 
-**Dashboard**: [Streamlit link](https://umjisydbhaxsgf4fskjeaw.streamlit.app/)
+**Dashboard**: [Streamlit link](https://hfk7og6ybnjsjauxghg7cy.streamlit.app/)
 
 ---
 
@@ -25,13 +25,14 @@ Key features:
 ## Repository Structure 
 _Original data are not included, as permission for access is needed from TB portal_
 
-- `environment.yml`: conda environment file
-- `Appl`: streamlit dashboard
+- `envs/environment.yml`: conda environment file
+- `requirements.txt`: packages used to construct dashboard env (runtime.txt used for dashboard env as well)
+- `App/`: streamlit dashboard
   - `example_input.csv/xslx`: example input, add your own data in, in this format
   - `feature_list.pkl`: list of features for input
 - `Analysis/`: Data analysis and modelling.
   - `Figures/`: plots and tables
-  - `Figures/`: save model model weights for the full model
+  - `model_weights/`: saved model model weights for the full model
   - `data_processing.ipynb`: data cleaning and engineering to generate clinical_lung_na1.csv
   - `multiclass_prediction.ipynb`: Modelling and associated calculations.
   - `KS_statistics.ipynb`: KS calculation
