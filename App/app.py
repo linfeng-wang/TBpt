@@ -41,7 +41,15 @@ feature_list = load_feature_list()
 # --------------------------------
 st.title("🫁 TB Treatment Outcome Prediction Dashboard")
 st.markdown("Upload patient-level data to obtain predicted treatment outcome and model explanations.")
+st.markdown(
+    """
+**Citation:**  
+Wang, L., Campino, S., Clark, T.G. and Phelan, J.E. (2025a). A multi-stage machine learning framework for stepwise prediction of tuberculosis treatment outcomes: Integrating gradient boosted decision trees and feature-level analysis for clinical decision support. Research Square, (Preprint). doi:https://doi.org/10.21203/rs.3.rs-7558046/v1.
 
+**Github repo:**  
+https://github.com/linfeng-wang/TBpt
+"""
+)
 # --------------------------------
 # Tabs
 # --------------------------------
