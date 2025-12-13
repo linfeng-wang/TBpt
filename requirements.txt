@@ -1,7 +1,7 @@
 streamlit==1.33.0
 pandas
 numpy
-xgboost==2.0.3
+xgboost-cpu==2.0.3
 shap==0.43.0
 joblib
 matplotlib
