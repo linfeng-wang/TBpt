@@ -5,7 +5,7 @@
 **Publication**: A multi-stage machine learning framework for stepwise prediction of tuberculosis treatment outcomes  
 **Dataset**: [TB Portals](https://tbportals.niaid.nih.gov)
 
-**Streamlit Dashboard**: [TB Portals](https://8vl3xgriqww4uuvcxp9iqo.streamlit.app/)
+**Dashboard**: [Streamlit link](https://8vl3xgriqww4uuvcxp9iqo.streamlit.app/)
 
 ---
 
