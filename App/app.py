@@ -5,17 +5,26 @@ import xgboost as xgb
 import shap
 import joblib
 import matplotlib.pyplot as plt
+import pickle
+import os
 
 st.set_page_config(page_title="TB Treatment Outcome Predictor", layout="wide")
 
 # -------------------------------
 # Load model + feature list
 # -------------------------------
-@st.cache_resource
+# @st.cache_resource
+# def load_model():
+#     model = xgb.XGBClassifier()
+#     model = pickle.load('xgboost_full_model_weights.pkl')
+#     # model.load_model("xgboost_full_model_weights.json")
+#     return model
+
 def load_model():
-    model = xgb.XGBClassifier()
-    model.load_model("xgboost_full_model_weights.json")
+    model_path = os.path.join(os.path.dirname(__file__), "xgboost_full_model_weights.pkl")
+    model = joblib.load(model_path)
     return model
+
 
 @st.cache_resource
 def load_feature_list():
@@ -36,7 +45,7 @@ st.markdown("Upload patient-level data to obtain predicted treatment outcome and
 # --------------------------------
 # Tabs
 # --------------------------------
-tab_upload, tab_shap, tab_waterfall = st.tabs(["📁 Upload & Predict", "📊 SHAP Summary", "🔍 Waterfall Explanation"])
+tab_upload, tab_shap, tab_waterfall = st.tabs(["📁 Upload & Predict", "📊 Model SHAP Summary", "🔍 Sample Waterfall Explanation"])
 
 
 # ======================================================================
