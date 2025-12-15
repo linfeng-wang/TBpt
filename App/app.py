@@ -5,7 +5,6 @@ import xgboost as xgb
 import shap
 import joblib
 import matplotlib.pyplot as plt
-import pickle
 import os
 
 st.set_page_config(page_title="TB Treatment Outcome Predictor", layout="wide")
@@ -135,6 +134,7 @@ with tab_upload:
 
             # Drop extra columns, keep only required set
             df = df.reindex(columns=feature_list)
+            df = df.astype(float)
 
         st.success("Data successfully validated. Ready to predict.")
 
