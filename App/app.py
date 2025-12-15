@@ -20,9 +20,15 @@ st.set_page_config(page_title="TB Treatment Outcome Predictor", layout="wide")
 #     # model.load_model("xgboost_full_model_weights.json")
 #     return model
 
+# def load_model():
+#     model_path = os.path.join(os.path.dirname(__file__), "xgboost_full_model_weights.pkl")
+#     model = joblib.load(model_path)
+#     return model
+
+@st.cache_resource
 def load_model():
-    model_path = os.path.join(os.path.dirname(__file__), "xgboost_full_model_weights.pkl")
-    model = joblib.load(model_path)
+    model = xgb.XGBClassifier()
+    model.load_model("xgboost_model.json")
     return model
 
 
