@@ -27,9 +27,19 @@ st.set_page_config(page_title="TB Treatment Outcome Predictor", layout="wide")
 
 @st.cache_resource
 def load_model():
-    model = xgb.XGBClassifier()
-    model.load_model("xgboost_model.json")
-    return model
+    model_path = os.path.join(
+        os.path.dirname(__file__),
+        "xgboost_full_model_weights.json"
+    )
+    booster = xgb.Booster()
+    booster.load_model(model_path)
+    return booster
+
+# @st.cache_resource
+# def load_model():
+#     model = xgb.XGBClassifier()
+#     model.load_model("xgboost_full_model_weights.json")
+#     return model
 
 
 @st.cache_resource
@@ -131,8 +141,13 @@ with tab_upload:
         # -------------------------------
         # Predict
         # -------------------------------
-        preds = model.predict(df)
-        probs = model.predict_proba(df)[:, 1]
+        # preds = model.predict(df)
+        # probs = model.predict_proba(df)[:, 1]
+        dmat = xgb.DMatrix(df)
+
+        probs = model.predict(dmat)
+        preds = (probs >= 0.5).astype(int)
+
 
         result_df = pd.DataFrame({
             "Predicted Outcome": ["Cured" if p == 1 else "Failed" for p in preds],
@@ -151,10 +166,17 @@ with tab_upload:
         st.write(f"**Mean confidence:** { probs.mean():.3f}")
 
         # Histogram
-        fig_hist, ax_hist = plt.subplots()
-        ax_hist.hist(probs, bins=20, color='skyblue')
+        fig_hist, ax_hist = plt.subplots(figsize=(10, 8))  # width, height in inches
+        ax_hist.hist(probs, bins=50, color='skyblue')
         ax_hist.set_title("Confidence Score Distribution")
-        st.pyplot(fig_hist)
+        ax_hist.set_xlabel("Predicted Probability (Cure)")
+        ax_hist.set_ylabel("Number of Patients")
+        
+        # st.pyplot(fig_hist)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.pyplot(fig_hist)
+
 
         # -------------------------------
         # Download Predictions
@@ -199,7 +221,10 @@ with tab_shap:
         st.write("**Mean Absolute SHAP Values (Global Importance)**")
         fig1, ax1 = plt.subplots(figsize=(10, 6))
         shap.summary_plot(shap_values, df_shap, plot_type="bar", show=False)
-        st.pyplot(fig1)
+        # st.pyplot(fig1)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.pyplot(fig1)
         plt.clf()
 
         # -------------------------------
@@ -208,7 +233,10 @@ with tab_shap:
         st.write("**SHAP Beeswarm Plot (Full Feature Contributions)**")
         fig2, ax2 = plt.subplots(figsize=(10, 6))
         shap.summary_plot(shap_values, df_shap, show=False)
-        st.pyplot(fig2)
+        # st.pyplot(fig2)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.pyplot(fig2)
         plt.clf()
 
 
@@ -258,5 +286,8 @@ with tab_waterfall:
             show=False
         )
         st.pyplot(fig3)
+        # col1, col2, col3 = st.columns([1, 2, 1])
+        # with col2:
+        #     st.pyplot(fig3)
         plt.clf()
 
