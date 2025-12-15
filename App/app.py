@@ -181,24 +181,35 @@ with tab_shap:
         else:
             df_shap = df
 
-        # Compute SHAP values
-        explainer = shap.Explainer(model, df_shap)
-        shap_values = explainer(df_shap)
+        # -------------------------------
+        # Compute SHAP values (XGBoost-safe)
+        # -------------------------------
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(df_shap)
 
-        # Bar plot
+        # -------------------------------
+        # Bar plot (global importance)
+        # -------------------------------
         st.write("**Mean Absolute SHAP Values (Global Importance)**")
         fig1, ax1 = plt.subplots(figsize=(10, 6))
         shap.summary_plot(shap_values, df_shap, plot_type="bar", show=False)
         st.pyplot(fig1)
+        plt.clf()
 
-        # Beeswarm
+        # -------------------------------
+        # Beeswarm plot
+        # -------------------------------
         st.write("**SHAP Beeswarm Plot (Full Feature Contributions)**")
         fig2, ax2 = plt.subplots(figsize=(10, 6))
         shap.summary_plot(shap_values, df_shap, show=False)
         st.pyplot(fig2)
+        plt.clf()
 
 
 
+# ======================================================================
+# TAB 3: SHAP WATERFALL
+# ======================================================================
 # ======================================================================
 # TAB 3: SHAP WATERFALL
 # ======================================================================
@@ -209,22 +220,37 @@ with tab_waterfall:
     else:
         st.subheader("🔍 SHAP Waterfall Explanation")
 
-        # Limit for SHAP again
+        # Limit rows for SHAP
         MAX_SHAP = 200
         df_shap = df.head(MAX_SHAP)
 
-        explainer = shap.Explainer(model, df_shap)
-        shap_values = explainer(df_shap)
+        # -------------------------------
+        # Compute SHAP values (XGBoost-safe)
+        # -------------------------------
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(df_shap)
+        base_value = explainer.expected_value
 
         # Choose index for detailed explanation
         example_idx = st.number_input(
             "Choose a sample index for a waterfall explanation:",
             min_value=0,
-            max_value=len(df_shap)-1,
+            max_value=len(df_shap) - 1,
             value=0
         )
 
         st.write(f"**SHAP Waterfall Plot for Sample {example_idx}**")
+
         fig3, ax3 = plt.subplots(figsize=(10, 8))
-        shap.plots.waterfall(shap_values[example_idx], show=False)
+        shap.waterfall_plot(
+            shap.Explanation(
+                values=shap_values[example_idx],
+                base_values=base_value,
+                data=df_shap.iloc[example_idx],
+                feature_names=df_shap.columns
+            ),
+            show=False
+        )
         st.pyplot(fig3)
+        plt.clf()
+
