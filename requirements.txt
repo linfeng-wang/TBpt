@@ -7,3 +7,4 @@ joblib
 matplotlib
 scikit-learn
 openpyxl
+streamlit_shap
