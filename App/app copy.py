@@ -6,8 +6,6 @@ import shap
 import joblib
 import matplotlib.pyplot as plt
 import os
-from streamlit_shap import st_shap
-
 
 st.set_page_config(page_title="TB Treatment Outcome Predictor", layout="wide")
 
@@ -203,54 +201,49 @@ with tab_shap:
     else:
         st.subheader("📊 SHAP Feature Importance Summary")
 
+        # Limit rows for SHAP to prevent slowdowns
         MAX_SHAP = 200
-        df_shap = df.head(MAX_SHAP) if len(df) > MAX_SHAP else df
+        if len(df) > MAX_SHAP:
+            st.warning(f"Dataset is large. Only first {MAX_SHAP} rows used for SHAP visualization.")
+            df_shap = df.head(MAX_SHAP)
+        else:
+            df_shap = df
 
-        # ------------------------------------------------
-        # XGBoost-native SHAP (Streamlit-safe)
-        # ------------------------------------------------
-        dmat_shap = xgb.DMatrix(df_shap, feature_names=df_shap.columns.tolist())
+        # -------------------------------
+        # Compute SHAP values (XGBoost-safe)
+        # -------------------------------
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(df_shap)
 
-        # shap_vals = model.predict(
-        #     dmat_shap,
-        #     pred_contribs=True
-        # )
+        # -------------------------------
+        # Bar plot (global importance)
+        # -------------------------------
+        st.write("**Mean Absolute SHAP Values (Global Importance)**")
+        fig1, ax1 = plt.subplots(figsize=(10, 6))
+        shap.summary_plot(shap_values, df_shap, plot_type="bar", show=False)
+        # st.pyplot(fig1)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.pyplot(fig1)
+        plt.clf()
 
-        # drop bias term
-        # shap_vals = shap_vals[:, :-1]
-        shap_full = model.predict(dmat_shap, pred_contribs=True)
-
-        shap_values = shap_full[:, :-1]        # feature attributions
-        base_values = shap_full[:, -1]         # bias term (required)
-
-
-        # expl = shap.Explanation(
-        #     values=shap_vals,
-        #     data=df_shap.values,
-        #     feature_names=df_shap.columns
-        # )
-        expl = shap.Explanation(
-            values=shap_values,
-            base_values=base_values,
-            data=df_shap.values,
-            feature_names=df_shap.columns.tolist()
-        )
-
-
-        # ------------------------------------------------
-        # Bar plot
-        # ------------------------------------------------
-        st.markdown("**Global Feature Importance (Mean |SHAP|)**")
-        st_shap(shap.plots.bar(expl), height=400)
-
-        # ------------------------------------------------
+        # -------------------------------
         # Beeswarm plot
-        # ------------------------------------------------
-        st.markdown("**SHAP Beeswarm Plot**")
-        st_shap(shap.plots.beeswarm(expl), height=500)
+        # -------------------------------
+        st.write("**SHAP Beeswarm Plot (Full Feature Contributions)**")
+        fig2, ax2 = plt.subplots(figsize=(10, 6))
+        shap.summary_plot(shap_values, df_shap, show=False)
+        # st.pyplot(fig2)
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.pyplot(fig2)
+        plt.clf()
 
 
 
+# ======================================================================
+# TAB 3: SHAP WATERFALL
+# ======================================================================
 # ======================================================================
 # TAB 3: SHAP WATERFALL
 # ======================================================================
@@ -261,47 +254,40 @@ with tab_waterfall:
     else:
         st.subheader("🔍 SHAP Waterfall Explanation")
 
+        # Limit rows for SHAP
         MAX_SHAP = 200
         df_shap = df.head(MAX_SHAP)
 
-        dmat_shap = xgb.DMatrix(df_shap, feature_names=df_shap.columns.tolist())
+        # -------------------------------
+        # Compute SHAP values (XGBoost-safe)
+        # -------------------------------
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(df_shap)
+        base_value = explainer.expected_value
 
-        # shap_vals = model.predict(
-        #     dmat_shap,
-        #     pred_contribs=True
-        # )
-        # shap_vals = shap_vals[:, :-1]
-
-        # expl = shap.Explanation(
-        #     values=shap_vals,
-        #     data=df_shap.values,
-        #     feature_names=df_shap.columns
-        # )
-
-        shap_full = model.predict(dmat_shap, pred_contribs=True)
-
-        shap_values = shap_full[:, :-1]        # feature attributions
-        base_values = shap_full[:, -1]         # bias term (required)
-
-
-        # expl = shap.Explanation(
-        #     values=shap_vals,
-        #     data=df_shap.values,
-        #     feature_names=df_shap.columns
-        # )
-        expl = shap.Explanation(
-            values=shap_values,
-            base_values=base_values,
-            data=df_shap.values,
-            feature_names=df_shap.columns.tolist()
-        )
-
+        # Choose index for detailed explanation
         example_idx = st.number_input(
-            "Choose a sample index:",
+            "Choose a sample index for a waterfall explanation:",
             min_value=0,
             max_value=len(df_shap) - 1,
             value=0
         )
 
-        st.markdown(f"**Waterfall plot for sample {example_idx}**")
-        st_shap(shap.plots.waterfall(expl[example_idx]), height=400)
+        st.write(f"**SHAP Waterfall Plot for Sample {example_idx}**")
+
+        fig3, ax3 = plt.subplots(figsize=(10, 8))
+        shap.waterfall_plot(
+            shap.Explanation(
+                values=shap_values[example_idx],
+                base_values=base_value,
+                data=df_shap.iloc[example_idx],
+                feature_names=df_shap.columns
+            ),
+            show=False
+        )
+        st.pyplot(fig3)
+        # col1, col2, col3 = st.columns([1, 2, 1])
+        # with col2:
+        #     st.pyplot(fig3)
+        plt.clf()
+
