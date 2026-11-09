@@ -2,8 +2,8 @@
 
 **Author**: Linfeng Wang  
 **Affiliation**: London School of Hygiene & Tropical Medicine  
-**Publication**: A multi-stage machine learning framework for stepwise prediction of tuberculosis treatment outcomes  
-Linfeng Wang. (2026). linfeng-wang/TBpt: v1.0.0 (Version v1.0.0) [Computer software]. Zenodo.  DOI: 10.5281/zenodo.24094694
+**Publication**: Stepwise gradient-boosted decision tree models predict tuberculosis treatment outcomes using clinical information grouped by stage of care  
+Linfeng Wang. (2026). linfeng-wang/TBpt: analysis added (Version v1.1.0) [Computer software]. Zenodo. DOI: [10.5281/zenodo.24094694](https://doi.org/10.5281/zenodo.24094694)
 
 **Dataset**: [TB Portals](https://tbportals.niaid.nih.gov)
 
